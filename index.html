@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Voice to Text Converter</title>
+  </head>
+  <body>
+		<textarea id = "result" rows="8" cols="80"></textarea> <br>
+    <button id = "start">Start</button>
+		<button id = "stop">Stop</button>
+
+		<script type="text/javascript">
+			var startButton = document.getElementById('start');
+			var stopButton = document.getElementById('stop');
+			var resultElement = document.getElementById('result');
+
+			var recognition = new webkitSpeechRecognition();
+
+			recognition.lang = window.navigator.language;
+			recognition.interimResults = true;
+
+			startButton.addEventListener('click', () => { recognition.start(); });
+			stopButton.addEventListener('click', () => { recognition.stop(); });
+
+			recognition.addEventListener('result', (event) => {
+				const result = event.results[event.results.length - 1][0].transcript;
+				resultElement.textContent = result;
+			});
+		</script>
+  </body>
+</html>
